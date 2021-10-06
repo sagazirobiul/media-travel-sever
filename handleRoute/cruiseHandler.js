@@ -2,6 +2,7 @@ const express = require("express");
 const Cruise = require("../model/CruiseSchema")
 const router = express.Router();
 const cloudinary = require('cloudinary').v2;
+require('dotenv').config()
 
 cloudinary.config({ 
   cloud_name: process.env.CLOUD_NAME, 
