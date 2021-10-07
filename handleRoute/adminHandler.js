@@ -1,6 +1,5 @@
 const express = require("express");
 const Admin = require("../model/adminSchema");
-const { route } = require("./flightHandler");
 const router = express.Router();
 
 router.post('/', async(req, res) => {
