@@ -2,11 +2,8 @@ const express = require('express');
 const mongoose = require("mongoose");
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
-const path = require('path')
-
-
-//import route
-
+const path = require('path');
+require('dotenv').config()
 
 //make app
 const app = express();
@@ -16,19 +13,18 @@ app.use(fileUpload({
   useTempFiles: true
 }))
 
-
 //database connection
 mongoose
-    .connect("mongodb+srv://codeBuster:codebuster5@codebusters.oi0ju.mongodb.net/mediaTravel?retryWrites=true&w=majority")
+    .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@codebusters.oi0ju.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`)
     .then(()=>console.log("connection successful"))
     .catch(err => console.log(err))
-
 
 //application route
 app.use('/flights', require('./handleRoute/flightHandler'))
 app.use('/hotels', require('./handleRoute/hotelHandler'))
 app.use('/cars', require('./handleRoute/carHandler'))
 app.use('/cruises', require('./handleRoute/cruiseHandler'))
+app.use('/admin', require('./handleRoute/adminHandler'))
 
 
 //default error handler
@@ -39,6 +35,7 @@ function errorHandler(err, req, res, next) {
     res.status(500).json({ error: err });
   }
 
-app.listen(5000, () => {
-    console.log("app listing at port 5000");
-})
+  const PORT = process.env.PORT || 5000
+  app.listen(PORT, () =>{
+      console.log('Server is running on port', PORT)
+  })
