@@ -2,7 +2,8 @@ const express = require("express");
 const Cruise = require("../model/CruiseSchema")
 const router = express.Router();
 const cloudinary = require('cloudinary').v2;
-require('dotenv').config()
+require('dotenv').config();
+const fs = require('fs');
 
 cloudinary.config({ 
   cloud_name: process.env.CLOUD_NAME, 
@@ -12,14 +13,13 @@ cloudinary.config({
 
 
 router.post("/",(req, res) => {
-    const file = req.files.photo;
+  const file = req.files.images
     cloudinary.uploader.upload(file.tempFilePath,(err,result)=>{
-      console.log(result)
       req.body.images = result.url;
       newCruise = new Cruise(req.body);
+      removeTmp(file.tempFilePath)
       newCruise.save()
       .then(result=>{
-        console.log(result)
         res.status(200).json({
             Cruise: result 
         })
@@ -33,5 +33,11 @@ router.post("/",(req, res) => {
     })
     
   });
+
+  const removeTmp = (path) =>{
+    fs.unlink(path, err=>{
+        if(err) throw err;
+    })
+}
 
   module.exports = router;
