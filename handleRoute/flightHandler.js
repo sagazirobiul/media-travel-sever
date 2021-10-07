@@ -3,6 +3,7 @@ const Flight = require("../model/flightSchema")
 const mongoose = require("mongoose");
 const router = express.Router();
 const cloudinary = require('cloudinary').v2;
+require('dotenv').config()
 
 cloudinary.config({ 
   cloud_name: process.env.CLOUD_NAME, 
@@ -53,9 +54,8 @@ cloudinary.config({
 //         description: req.body.description,
 //         images: result.url
 router.post("/",(req, res) => {
-    const file = req.files.photo;
-    cloudinary.uploader.upload(file.tempFilePath,(err,result)=>{
-      console.log(result)
+    const file = req.body.images
+    cloudinary.uploader.upload(file,(err,result)=>{
       req.body.images = result.url;
       newFlight = new Flight(req.body);
       newFlight.save()
