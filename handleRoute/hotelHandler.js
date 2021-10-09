@@ -12,6 +12,22 @@ cloudinary.config({
 });
 
 
+router.get("/", (req, res) => {
+  Hotel.find()
+    .exec((err, data) => {
+      if (err) {
+        res.status(500).json({
+          error: "There was a server side error!",
+        });
+      } else {
+        res.status(200).json({
+          result: data,
+          message: "success!",
+        });
+      }
+    })
+})
+
 
 router.post("/",(req, res) => {
   const file = req.files.images

@@ -11,6 +11,23 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET
 });
 
+router.get("/", (req, res) => {
+  Cruise.find()
+    .exec((err, data) => {
+      if (err) {
+        res.status(500).json({
+          error: "There was a server side error!",
+        });
+      } else {
+        res.status(200).json({
+          result: data,
+          message: "success!",
+        });
+      }
+    })
+})
+
+
 
 router.post("/",(req, res) => {
   const file = req.files.images
