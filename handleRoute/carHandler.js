@@ -3,6 +3,7 @@ const Car = require("../model/carSchema")
 const router = express.Router();
 const cloudinary = require('cloudinary').v2;
 require('dotenv').config();
+const fs = require('fs');
 
 cloudinary.config({ 
   cloud_name: process.env.CLOUD_NAME, 
@@ -10,16 +11,30 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET
 });
 
+router.get("/", (req, res) => {
+  Car.find()
+    .exec((err, data) => {
+      if (err) {
+        res.status(500).json({
+          error: "There was a server side error!",
+        });
+      } else {
+        res.status(200).json({
+          result: data,
+          message: "success!",
+        });
+      }
+    })
+})
 
 router.post("/",(req, res) => {
-    const file = req.files.photo;
-    cloudinary.uploader.upload(file.tempFilePath,(err,result)=>{      
-      console.log(result)
+  const file = req.files.images;
+    cloudinary.uploader.upload(file.tempFilePath,(err,result)=>{
       req.body.images = result.url;
       newCar = new Car(req.body);
+      removeTmp(file.tempFilePath)
       newCar.save()
       .then(result=>{
-        console.log(result)
         res.status(200).json({
             Car: result 
         })
@@ -34,4 +49,9 @@ router.post("/",(req, res) => {
     
   });
 
+  const removeTmp = (path) =>{
+    fs.unlink(path, err=>{
+        if(err) throw err;
+    })
+}
   module.exports = router;
