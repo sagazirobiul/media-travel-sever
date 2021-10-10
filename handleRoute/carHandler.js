@@ -2,6 +2,7 @@ const express = require("express");
 const Car = require("../model/carSchema")
 const router = express.Router();
 const cloudinary = require('cloudinary').v2;
+require('dotenv').config();
 
 cloudinary.config({ 
   cloud_name: process.env.CLOUD_NAME, 
@@ -12,7 +13,7 @@ cloudinary.config({
 
 router.post("/",(req, res) => {
     const file = req.files.photo;
-    cloudinary.uploader.upload(file.tempFilePath,(err,result)=>{
+    cloudinary.uploader.upload(file.tempFilePath,(err,result)=>{      
       console.log(result)
       req.body.images = result.url;
       newCar = new Car(req.body);

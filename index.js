@@ -39,6 +39,10 @@ function errorHandler(err, req, res, next) {
     res.status(500).json({ error: err });
   }
 
+  app.get('/', (req, res) => {
+    res.send('Hello World! Everything is handled by CodeBusters...!')
+  })
+
 app.listen(5000, () => {
     console.log("app listing at port 5000");
 })

@@ -3,6 +3,7 @@ const Flight = require("../model/flightSchema")
 const mongoose = require("mongoose");
 const router = express.Router();
 const cloudinary = require('cloudinary').v2;
+require('dotenv').config();
 
 cloudinary.config({ 
   cloud_name: process.env.CLOUD_NAME, 
@@ -53,27 +54,44 @@ cloudinary.config({
 //         description: req.body.description,
 //         images: result.url
 router.post("/",(req, res) => {
-    const file = req.files.photo;
-    cloudinary.uploader.upload(file.tempFilePath,(err,result)=>{
-      console.log(result)
-      req.body.images = result.url;
-      newFlight = new Flight(req.body);
-      newFlight.save()
-      .then(result=>{
-        console.log(result)
-        res.status(200).json({
-          flight: result 
-        })
-      })
-      .catch(err=>{
-        console.log(err)
-        res.status(500).json({
-          Error: err
-        })
-      })
-    })
+    // const file = req.files.photo;
+    const file = req.body;
+    console.log("File here", file)
+    // cloudinary.uploader.upload(file.tempFilePath,(err,result)=>{      
+    //   console.log(result)
+    //   req.body.images = result.url;
+    //   newFlight = new Flight(req.body);
+    //   newFlight.save()
+    //   .then(result=>{
+    //     console.log(result)
+    //     res.status(200).json({
+    //       flight: result 
+    //     })
+    //   })
+    //   .catch(err=>{
+    //     console.log(err)
+    //     res.status(500).json({
+    //       Error: err
+    //     })
+    //   })
+    // })
     
   });
+  router.get("/flights", (req, res)=>{
+    Flight.find()
+      .exec((err, data)=>{
+        if (err) {
+          res.status(500).json({
+            error: "There was a server side error!",
+          });
+        } else {
+          res.status(200).json({
+            result: data,
+            message: "success!",
+          });
+        }
+      })
+  })
 
   // router.post("/all", async (req, res) => {
   //   await Service.insertMany(req.body, (err) => {
