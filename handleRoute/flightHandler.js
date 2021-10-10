@@ -4,10 +4,7 @@ const mongoose = require("mongoose");
 const router = express.Router();
 const cloudinary = require('cloudinary').v2;
 require('dotenv').config();
-<<<<<<< HEAD
-=======
 const fs = require('fs');
->>>>>>> 2f22059894e35f7ad3d25972ff61046b5076254b
 
 
 cloudinary.config({
