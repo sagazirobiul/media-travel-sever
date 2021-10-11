@@ -25,7 +25,7 @@ app.use('/hotels', require('./handleRoute/hotelHandler'))
 app.use('/cars', require('./handleRoute/carHandler'))
 app.use('/cruises', require('./handleRoute/cruiseHandler'))
 app.use('/admin', require('./handleRoute/adminHandler'))
-
+app.use('/review', require('./handleRoute/reviewHandler'))
 
 //default error handler
 function errorHandler(err, req, res, next) {
