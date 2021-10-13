@@ -25,6 +25,10 @@ const hotelSchema = mongoose.Schema({
     type: Object,
     required: true,
   },
+  image_id: {
+    type: String,
+    required: true,
+  },
 });
 
 const Hotel = mongoose.model("Hotel", hotelSchema);

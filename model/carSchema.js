@@ -25,6 +25,10 @@ const carSchema = mongoose.Schema({
     type: Object,
     required: true,
   },
+  image_id: {
+    type: String,
+    required: true,
+  },
 });
 
 const Car = mongoose.model("Car", carSchema);

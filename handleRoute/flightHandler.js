@@ -13,48 +13,11 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET
 });
 
-router.get("/", (req, res) => {
-  Flight.find()
-    .exec((err, data) => {
-      if (err) {
-        res.status(500).json({
-          error: "There was a server side error!",
-        });
-      } else {
-        res.status(200).json({
-          result: data,
-          message: "success!",
-        });
-      }
-    })
-})
-
-// router.get("/:id", (req, res)=>{
-//     Todo.find({_id:req.params.id},(err, data)=>{
-//       if (err) {
-//         res.status(500).json({
-//           error: "There was a server side error!",
-//         });
-//       } else {
-//         res.status(200).json({
-//           result: data,
-//           message: "success!",
-//         });
-//       }
-//     })
-// })
-// _id: new mongoose.Types.ObjectID,
-//         flightName: req.body.flightName,
-//         destination: req.body.destination,
-//         price: req.body.price,
-//         person: req.body.person,
-//         description: req.body.description,
-//         images: result.url
-
 router.post("/", (req, res) => {
   const file = req.files.images
     cloudinary.uploader.upload(file.tempFilePath,(err,result)=>{
       req.body.images = result.url;
+      req.body.image_id = result.public_id;
       newFlight = new Flight(req.body);
       removeTmp(file.tempFilePath)
       newFlight.save()
@@ -72,6 +35,96 @@ router.post("/", (req, res) => {
     })
 
 });
+
+router.patch("/:id",(req, res) => {
+    const file = req.files?.images;
+    const image_id = req.body.image_id;
+    cloudinary.uploader.destroy(image_id);
+    if (file) {
+        cloudinary.uploader.upload(file.tempFilePath,(err,result)=>{
+        req.body.images = result.url;
+        req.body.image_id = result.public_id;
+        newImage = result.url;
+        removeTmp(file.tempFilePath)
+        if(result.url){
+          Flight.findOneAndUpdate({_id:req.params.id}, {$set: req.body}, (err, data)=>{
+            if(err) {
+                res.status(500).json({
+                    error: "There was a server side error!"
+                })
+            } else {
+                res.status(200).json({
+                    message: "success!"
+                })
+              }  
+          })   
+        }
+    })}
+    if(req.body.images){
+      Flight.findOneAndUpdate({_id:req.params.id}, {$set: req.body}, (err, data)=>{
+        if(err) {
+            res.status(500).json({
+                error: "There was a server side error!"
+            })
+        } else {
+            res.status(200).json({
+                message: "success!"
+            })
+          }  
+      })
+    }
+});
+
+
+
+router.get("/", (req, res) => {
+  Flight.find()
+    .exec((err, data) => {
+      if (err) {
+        res.status(500).json({
+          error: "There was a server side error!",
+        });
+      } else {
+        res.status(200).json({
+          result: data,
+          message: "success!",
+        });
+      }
+    })
+})
+
+router.get("/:id", (req, res)=>{
+    Flight.find({_id:req.params.id},(err, data)=>{
+      if (err) {
+        res.status(500).json({
+          error: "There was a server side error!",
+        });
+      } else {
+        res.status(200).json({
+          result: data,
+          message: "success!",
+        });
+      }
+    })
+})
+
+
+
+router.delete("/:id", (req, res)=>{
+  const image_id = req.body.image_id;
+  cloudinary.uploader.destroy(image_id);
+  Flight.deleteOne({_id:req.params.id},(err)=>{
+    if (err) {
+      res.status(500).json({
+        error: "There was a server side error!",
+      });
+    } else {
+      res.status(200).json({
+        message: "Todos was deleted successfully!",
+      });
+    }
+  })
+})
 
 // router.post("/all", async (req, res) => {
 //   await Service.insertMany(req.body, (err) => {
