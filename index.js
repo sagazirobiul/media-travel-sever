@@ -26,6 +26,10 @@ app.use('/cars', require('./handleRoute/carHandler'))
 app.use('/cruises', require('./handleRoute/cruiseHandler'))
 app.use('/admin', require('./handleRoute/adminHandler'))
 app.use('/review', require('./handleRoute/reviewHandler'))
+app.use('/carBooking', require('./handleRoute/carBookingHandler'))
+app.use('/flightBooking', require('./handleRoute/flightBookingHandler'))
+app.use('/cruisesBooking', require('./handleRoute/cruisesBookingHandler'))
+
 
 //default error handler
 function errorHandler(err, req, res, next) {

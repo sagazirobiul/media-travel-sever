@@ -5,8 +5,8 @@ const cloudinary = require('cloudinary').v2;
 require('dotenv').config();
 const fs = require('fs');
 
-cloudinary.config({ 
-  cloud_name: process.env.CLOUD_NAME, 
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUD_API_KEY,
   api_secret: process.env.CLOUD_API_SECRET
 });
@@ -22,7 +22,7 @@ router.post("/",(req, res) => {
       newCruise.save()
       .then(result=>{
         res.status(200).json({
-            Cruise: result 
+            Cruise: result
         })
       })
       .catch(err=>{
@@ -32,7 +32,7 @@ router.post("/",(req, res) => {
         })
       })
     })
-    
+
   });
   router.patch("/:id", (req, res) => {
     const file = req.files?.images;
@@ -89,7 +89,7 @@ router.post("/",(req, res) => {
         }
       })
   })
-  
+
   router.get("/:id", (req, res) => {
     Cruise.find({ _id: req.params.id }, (err, data) => {
       if (err) {
