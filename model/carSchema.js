@@ -5,7 +5,7 @@ const carSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  location: {
+  carFrom: {
     type: String,
     required: true,
   },
@@ -13,7 +13,7 @@ const carSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  carType: {
+  carTo: {
     type: String,
     required: true,
   },

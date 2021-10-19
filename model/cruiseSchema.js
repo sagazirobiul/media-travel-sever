@@ -5,7 +5,7 @@ const cruiseSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  service: {
+  sailFrom: {
     type: String,
     required: true,
   },
@@ -13,7 +13,7 @@ const cruiseSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  cruiseType: {
+  sailTo: {
     type: String,
     required: true,
   },

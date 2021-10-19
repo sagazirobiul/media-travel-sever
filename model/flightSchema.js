@@ -5,7 +5,7 @@ const flightSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  destination: {
+  flightFrom: {
     type: String,
     required: true,
   },
@@ -13,7 +13,7 @@ const flightSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  flightType: {
+  flightTo: {
     type: String,
     required: true,
   },
