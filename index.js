@@ -30,6 +30,7 @@ app.use('/carBooking', require('./handleRoute/carBookingHandler'))
 app.use('/flightBooking', require('./handleRoute/flightBookingHandler'))
 app.use('/cruisesBooking', require('./handleRoute/cruisesBookingHandler'))
 
+app.use('/blog', require('./handleRoute/blogHandler'))
 
 //default error handler
 function errorHandler(err, req, res, next) {
