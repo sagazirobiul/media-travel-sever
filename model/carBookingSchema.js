@@ -5,27 +5,31 @@ const carBookingSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  pickUp: {
+  carName: {
     type: String,
     required: true,
   },
-  returning: {
+  carFrom: {
     type: String,
     required: true,
   },
-  checkIn: {
+  carTo: {
+    type: String,
+    required: true,
+  },
+  departingDate: {
     type: Date,
     required: true,
   },
-  checkOut: {
+  returningDate: {
     type: Date,
     required: true,
   },
-  price: {
+  totalPrice: {
     type: Number,
     required: true,
   },
-  cardId: {
+  paymentId: {
     type: String,
     required: true,
   },

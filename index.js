@@ -28,7 +28,8 @@ app.use('/admin', require('./handleRoute/adminHandler'))
 app.use('/review', require('./handleRoute/reviewHandler'))
 app.use('/carBooking', require('./handleRoute/carBookingHandler'))
 app.use('/flightBooking', require('./handleRoute/flightBookingHandler'))
-app.use('/cruisesBooking', require('./handleRoute/cruisesBookingHandler'))
+app.use('/cruiseBooking', require('./handleRoute/cruisesBookingHandler'))
+app.use('/hotelBooking', require('./handleRoute/hotelBookingHendler'))
 
 app.use('/blog', require('./handleRoute/blogHandler'))
 
