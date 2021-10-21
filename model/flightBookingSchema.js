@@ -33,14 +33,10 @@ const flightBookingSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-<<<<<<< HEAD
   paymentId: {
     type: String,
     required: true,
   },
-=======
-  
->>>>>>> 38463ff0db9c69ae51a598392c30f186a0d6d219
   paymentTime: {
       type: Date,
       required: true
