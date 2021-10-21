@@ -5,37 +5,41 @@ const flightBookingSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  from: {
+  flightFrom: {
     type: String,
     required: true,
   },
-  to: {
+  flightTo: {
     type: String,
     required: true,
   },
-  departing: {
+  departingDate: {
     type: Date,
     required: true,
   },
-  returning: {
+  returningDate: {
     type: Date,
     required: true,
   },
-  flightType: {
-    type: String,
-    required: true,
-  },
-  price: {
+  totalPrice: {
     type: Number,
     required: true,
   },
-  cardId: {
+  paymentId: {
     type: String,
     required: true,
   },
   paymentTime: {
       type: Date,
       required: true
+  },
+  adult: {
+    type: String,
+    required: true,
+  },
+  child: {
+    type: String,
+    required: true,
   }
 });
 
