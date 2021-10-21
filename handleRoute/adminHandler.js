@@ -18,4 +18,19 @@ router.post('/', async(req, res) => {
     })
 })
 
+router.get('/:id', (req, res) => {
+  Admin.find({email: req.params.id}, (err, data) => {
+      if(err) {
+          res.status(500).json({
+              error: "There was a server side error!"
+          })
+      } else {
+          res.status(200).json({
+              result: data,
+              message: "success!"
+          })
+      } 
+  })
+})
+
 module.exports = router;
