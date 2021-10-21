@@ -21,14 +21,15 @@ const flightBookingSchema = mongoose.Schema({
     type: Date,
     required: true,
   },
+  flightType: {
+    type: String,
+    required: true,
+  },
   totalPrice: {
     type: Number,
     required: true,
   },
-  paymentId: {
-    type: String,
-    required: true,
-  },
+  
   paymentTime: {
       type: Date,
       required: true
