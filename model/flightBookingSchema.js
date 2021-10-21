@@ -5,19 +5,19 @@ const flightBookingSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  from: {
+  flightFrom: {
     type: String,
     required: true,
   },
-  to: {
+  flightTo: {
     type: String,
     required: true,
   },
-  departing: {
+  departingDate: {
     type: Date,
     required: true,
   },
-  returning: {
+  returningDate: {
     type: Date,
     required: true,
   },
@@ -25,14 +25,11 @@ const flightBookingSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  price: {
+  totalPrice: {
     type: Number,
     required: true,
   },
-  cardId: {
-    type: String,
-    required: true,
-  },
+  
   paymentTime: {
       type: Date,
       required: true
