@@ -5,15 +5,15 @@ const cruisesBookingSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  designation: {
+  sailFrom: {
     type: String,
     required: true,
   },
-  ports: {
+  sailTo: {
     type: String,
     required: true,
   },
-  ships: {
+  cruiseName: {
     type: String,
     required: true,
   },
@@ -23,23 +23,31 @@ const cruisesBookingSchema = mongoose.Schema({
   },
   checkIn: {
     type: String,
-    required: true,
+    required: true
   },
   checkOut: {
     type: String,
-    required: true,
+    required: true
   },
-  price: {
-    type: Number,
-    required: true,
-  },
-  cardId: {
+  totalPrice: {
     type: String,
     required: true,
+  },
+  paymentId: {
+      type: String,
+      required: true
   },
   paymentTime: {
       type: Date,
       required: true
+  },
+  adult: {
+    type: String,
+    required: true,
+  },
+  child: {
+    type: String,
+    required: true,
   }
 });
 
