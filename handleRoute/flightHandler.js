@@ -75,21 +75,28 @@ router.patch("/:id",(req, res) => {
     }
 });
 
-
-
 router.get("/", (req, res) => {
-  Flight.find()
-    .exec((err, data) => {
+  let query = req.query.flightFrom !== 'undefined' && req.query.flightTo !== 'undefined';
+
+  Flight.find( query? {flightFrom: req.query.flightFrom,flightTo: req.query.flightTo} :{})
+    .exec((err, data) => {;
       if (err) {
         res.status(500).json({
           error: "There was a server side error!",
         });
       } else {
-        res.status(200).json({
-          result: data,
-          message: "success!",
-        });
-      }
+          if(data.length === 0){
+            res.status(200).json({
+                result: data,
+                message: 404,
+            });
+          } else {
+            res.status(200).json({
+              result: data,
+              message: "success!",
+            }); 
+          }
+        }
     })
 })
 
@@ -108,8 +115,6 @@ router.get("/:id", (req, res)=>{
     })
 })
 
-
-
 router.delete("/:id", (req, res)=>{
   const image_id = req.body.image_id;
   cloudinary.uploader.destroy(image_id);
@@ -126,55 +131,7 @@ router.delete("/:id", (req, res)=>{
   })
 })
 
-// router.post("/all", async (req, res) => {
-//   await Service.insertMany(req.body, (err) => {
-//     if (err) {
-//       res.status(500).json({
-//         error: "There was a server side error!",
-//       });
-//     } else {
-//       res.status(200).json({
-//         message: "Service were inserted successfully!",
-//       });
-//     }
-//   });
-// });
 
-// router.put("/:id", (req, res)=>{
-//     Todo.updateOne({_id:req.params.id},
-//       {
-//         $set:{
-//           status:"inactive"
-
-//       }},
-//      (err,data)=>{
-//       if (err) {
-//         res.status(500).json({
-//           error: "There was a server side error!",
-//         });
-//       } else {
-//         res.status(200).json({
-//           result:data,
-//           message: "Todos was updated successfully!",
-//         });
-//       }
-//      }
-//       )
-// })
-
-// router.delete("/:id", (req, res)=>{
-//     Todo.deleteOne({_id:req.params.id},(err)=>{
-//       if (err) {
-//         res.status(500).json({
-//           error: "There was a server side error!",
-//         });
-//       } else {
-//         res.status(200).json({
-//           message: "Todos was deleted successfully!",
-//         });
-//       }
-//     })
-// })
 const removeTmp = (path) =>{
   fs.unlink(path, err=>{
       if(err) throw err;
