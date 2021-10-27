@@ -89,6 +89,33 @@ router.get("/", (req, res) => {
     })
 })
 
+
+router.get("/search", (req, res) => {
+  let query = req.query.cityName !== 'undefined';
+
+  Hotel.find( query? {cityName: req.query.cityName} :{})
+    .exec((err, data) => {;
+      if (err) {
+        res.status(500).json({
+          error: "There was a server side error!",
+        });
+      } else {
+          if(data.length === 0){
+            res.status(200).json({
+                result: data,
+                message: 404,
+            });
+          } else {
+            res.status(200).json({
+              result: data,
+              message: "success!",
+            }); 
+          }
+        }
+    })
+})
+
+
 router.get("/:id", (req, res) => {
   Hotel.find({ _id: req.params.id }, (err, data) => {
     if (err) {

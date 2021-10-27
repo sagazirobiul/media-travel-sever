@@ -74,18 +74,45 @@ router.post("/",(req, res) => {
     }
   });
 
+
   router.get("/", (req, res) => {
+    
     Cruise.find()
       .exec((err, data) => {
         if (err) {
           res.status(500).json({
             error: "There was a server side error!",
           });
-        } else {
-          res.status(200).json({
-            result: data,
-            message: "success!",
+        } else{
+            res.status(200).json({
+              result: data,
+              message: "success!",
+            });
+          }
+      })
+  })
+
+
+  router.get("/search", (req, res) => {
+    let query = req.query.sailFrom !== 'undefined' && req.query.sailTo !== 'undefined';
+    Cruise.find(query? {sailFrom: req.query.sailFrom, sailTo: req.query.sailTo} :{})
+      .exec((err, data) => {
+        if (err) {
+          res.status(500).json({
+            error: "There was a server side error!",
           });
+        } else {
+          if(data.length === 0){
+            res.status(200).json({
+                result: data,
+                message: 404,
+            });
+          } else{
+            res.status(200).json({
+              result: data,
+              message: "success!",
+            });
+          }
         }
       })
   })

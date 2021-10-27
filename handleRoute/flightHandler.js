@@ -76,6 +76,23 @@ router.patch("/:id",(req, res) => {
 });
 
 router.get("/", (req, res) => {
+
+  Flight.find({})
+    .exec((err, data) => {;
+      if (err) {
+        res.status(500).json({
+          error: "There was a server side error!",
+        });
+      } else {
+            res.status(200).json({
+              result: data,
+              message: "success!",
+            }); 
+        }
+    })
+})
+
+router.get("/search", (req, res) => {
   let query = req.query.flightFrom !== 'undefined' && req.query.flightTo !== 'undefined';
 
   Flight.find( query? {flightFrom: req.query.flightFrom,flightTo: req.query.flightTo} :{})

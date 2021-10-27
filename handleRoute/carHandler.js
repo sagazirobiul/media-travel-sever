@@ -75,21 +75,49 @@ router.patch("/:id", (req, res) => {
   }
 });
 
+
 router.get("/", (req, res) => {
-  Car.find()
-    .exec((err, data) => {
-      if (err) {
-        res.status(500).json({
-          error: "There was a server side error!",
-        });
-      } else {
-        res.status(200).json({
-          result: data,
-          message: "success!",
-        });
-      }
-    })
+    Car.find()
+      .exec((err, data) => {
+        if (err) {
+          res.status(500).json({
+            error: "There was a server side error!",
+          });
+        } else{
+            res.status(200).json({
+              result: data,
+              message: "success!",
+            });
+          }
+      })
 })
+
+
+router.get("/search", (req, res) => {
+  let query = req.query.carFrom !== 'undefined' && req.query.carTo !== 'undefined';
+    Car.find(query? {carFrom: req.query.carFrom, carTo: req.query.carTo} :{})
+      .exec((err, data) => {
+        if (err) {
+          res.status(500).json({
+            error: "There was a server side error!",
+          });
+        } else {
+          if(data.length === 0){
+            res.status(200).json({
+                result: data,
+                message: 404,
+            });
+          } else{
+            res.status(200).json({
+              result: data,
+              message: "success!",
+            });
+          }
+        }
+      })
+})
+
+
 router.get("/:id", (req, res) => {
   Car.find({ _id: req.params.id }, (err, data) => {
     if (err) {
