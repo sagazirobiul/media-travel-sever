@@ -18,5 +18,20 @@ router.post("/", (req, res) => {
             })
         })
 });
+router.get("/", (req, res) => {
+    cruisesBooking.find()
+        .exec((err, data) => {
+            if (err) {
+                res.status(500).json({
+                    error: "There was a server side error!",
+                });
+            } else {
+                res.status(200).json({
+                    result: data,
+                    message: "success!",
+                });
+            }
+        })
+})
 
 module.exports = router;
