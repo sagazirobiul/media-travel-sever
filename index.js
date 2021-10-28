@@ -39,11 +39,11 @@ app.use('/create-flight-pdf', require('./handleRoute/flightPdfHandler'))
 app.use('/create-cruise-pdf', require('./handleRoute/cruisePdfHandler'))
 app.use('/create-hotel-pdf', require('./handleRoute/hotelPdfHandler'))
 
-
+// downloding pdf
 app.get('/fetch-pdf', (req, res) => {
   res.sendFile(`${__dirname}/result.pdf`)
 })
-
+// sending email-pdf 
 app.post("/send_mail", (req, res) => {
   let { email } = req.body;
   var mail = nodemailer.createTransport({
