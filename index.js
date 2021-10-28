@@ -33,9 +33,7 @@ app.use('/flightBooking', require('./handleRoute/flightBookingHandler'))
 app.use('/cruiseBooking', require('./handleRoute/cruisesBookingHandler'))
 app.use('/hotelBooking', require('./handleRoute/hotelBookingHendler'))
 app.use('/blog', require('./handleRoute/blogHandler'))
-<<<<<<< HEAD
 app.use('/comment', require('./handleRoute/commentHandler'))
-=======
 app.use('/create-car-pdf', require('./handleRoute/carPdfHandler'))
 app.use('/create-flight-pdf', require('./handleRoute/flightPdfHandler'))
 app.use('/create-cruise-pdf', require('./handleRoute/cruisePdfHandler'))
@@ -86,7 +84,6 @@ app.post("/send_mail", (req, res) => {
     }
   });
 })
->>>>>>> 2c5f0bd (email part done)
 
 //default error handler
 function errorHandler(err, req, res, next) {
