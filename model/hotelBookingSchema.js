@@ -21,10 +21,6 @@ const hotelBookingSchema = mongoose.Schema({
     type: Date,
     required: true,
   },
-  roomType: {
-    type: String,
-    required: true,
-  },
   totalPrice: {
     type: Number,
     required: true,

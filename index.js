@@ -2,8 +2,10 @@ const express = require('express');
 const mongoose = require("mongoose");
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
+const nodemailer = require("nodemailer");
 const path = require('path');
 require('dotenv').config()
+
 
 //make app
 const app = express();
@@ -31,7 +33,60 @@ app.use('/flightBooking', require('./handleRoute/flightBookingHandler'))
 app.use('/cruiseBooking', require('./handleRoute/cruisesBookingHandler'))
 app.use('/hotelBooking', require('./handleRoute/hotelBookingHendler'))
 app.use('/blog', require('./handleRoute/blogHandler'))
+<<<<<<< HEAD
 app.use('/comment', require('./handleRoute/commentHandler'))
+=======
+app.use('/create-car-pdf', require('./handleRoute/carPdfHandler'))
+app.use('/create-flight-pdf', require('./handleRoute/flightPdfHandler'))
+app.use('/create-cruise-pdf', require('./handleRoute/cruisePdfHandler'))
+app.use('/create-hotel-pdf', require('./handleRoute/hotelPdfHandler'))
+
+
+app.get('/fetch-pdf', (req, res) => {
+  res.sendFile(`${__dirname}/result.pdf`)
+})
+
+app.post("/send_mail", (req, res) => {
+  let { email } = req.body;
+  var mail = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'codebuster.team@gmail.com',
+      pass: 'code@buster5'
+    }
+  });
+
+  var mailOptions = {
+    from: 'codebuster.team@gmail.com',
+    to: email,
+    subject: 'Grab your book plz ;)',
+    html: `<div className="email" style="
+        font-family: sans-serif;
+        line-height: 2;
+        font-size: 20px; 
+        ">
+        <h2>Here is your email!</h2>
+        <p>All the best, team@codeBuster</p>
+        </div>
+     `,
+    attachments: [
+      {
+        filename: 'result.pdf',
+        path: path.join(`${__dirname}/result.pdf`),
+        contentType: 'application/pdf'
+      }
+    ]
+  }
+
+  mail.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+})
+>>>>>>> 2c5f0bd (email part done)
 
 //default error handler
 function errorHandler(err, req, res, next) {
