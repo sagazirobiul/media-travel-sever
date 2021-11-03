@@ -36,6 +36,10 @@ const carBookingSchema = mongoose.Schema({
   paymentTime: {
       type: Date,
       required: true
+  },
+  status: {
+    type: String,
+    required: true,
   }
 });
 

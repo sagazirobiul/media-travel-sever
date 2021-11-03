@@ -33,4 +33,18 @@ router.get("/", (req, res) => {
         })
 })
 
+router.patch('/:id', (req, res) => {
+    hotelBooking.findOneAndUpdate({_id:req.params.id}, {$set: req.body}, (err, data)=>{
+          if(err) {
+              res.status(500).json({
+                  error: "There was a server side error!"
+              })
+          } else {
+              res.status(200).json({
+                  message: "success!"
+              })
+            }  
+        })   
+  })
+
 module.exports = router;

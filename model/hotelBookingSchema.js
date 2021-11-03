@@ -40,6 +40,10 @@ const hotelBookingSchema = mongoose.Schema({
   adult: {
     type: String,
     required: true,
+  },
+  status: {
+    type: String,
+    required: true,
   }
 });
 
