@@ -117,7 +117,7 @@ module.exports = ({ email, paymentId, flightName, flightFrom, flightTo, departin
                    <td>${flightFrom}</td>
                 </tr>
                 <tr class="item">
-                   <td>flight To:</td>
+                   <td>Flight To:</td>
                    <td>${flightTo}</td>
                 </tr>
                 <tr class="item">

@@ -36,10 +36,6 @@ const hotelBookingSchema = mongoose.Schema({
   adult: {
     type: String,
     required: true,
-  },
-  child: {
-    type: String,
-    required: true,
   }
 });
 
