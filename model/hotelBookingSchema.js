@@ -5,6 +5,10 @@ const hotelBookingSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  cityName: {
+    type: String,
+    required: true,
+  },
   hotelName: {
     type: String,
     required: true,
