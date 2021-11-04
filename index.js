@@ -20,7 +20,11 @@ mongoose
     .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@codebusters.oi0ju.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`)
     .then(()=>console.log("connection successful"))
     .catch(err => console.log(err))
-
+  
+app.get('/', (req, res) => {
+      res.send("hello from db it's working working")
+  })
+  
 //application route
 app.use('/flights', require('./handleRoute/flightHandler'))
 app.use('/hotels', require('./handleRoute/hotelHandler'))
