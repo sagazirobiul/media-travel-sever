@@ -22,5 +22,8 @@
     "nodemailer": "^6.7.0",
     "path": "^0.12.7",
     "react-content-loader": "^6.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14"
   }
 }
